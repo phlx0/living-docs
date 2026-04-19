@@ -56,13 +56,12 @@ chmod +x "$INSTALL_DIR"/hooks/*.sh
 
 # Register plugin with Claude Code
 if command -v claude >/dev/null 2>&1; then
-  # Claude Code CLI plugin registration (if supported)
-  claude plugin install "$INSTALL_DIR" 2>/dev/null && {
+  if claude plugin install "$INSTALL_DIR" 2>/dev/null; then
     success "Plugin registered via Claude Code CLI."
-  } || {
+  else
     warn "Manual registration needed. Add to your Claude Code settings:"
     warn "  \"plugins\": [\"$INSTALL_DIR\"]"
-  }
+  fi
 fi
 
 success "living-docs installed!"
