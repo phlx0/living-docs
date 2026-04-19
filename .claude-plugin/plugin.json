@@ -1,0 +1,9 @@
+{
+  "name": "living-docs",
+  "version": "1.0.0",
+  "description": "Keep documentation alive — auto-detects and fixes stale docs after code changes.",
+  "author": {
+    "name": "phlx0",
+    "url": "https://github.com/phlx0/living-docs"
+  }
+}

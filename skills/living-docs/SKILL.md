@@ -1,15 +1,11 @@
 ---
 name: living-docs
-description: Detect and fix stale documentation after code changes. Scans all doc files for references to changed code and updates them to match current reality. Auto-triggers a warning after code edits; run /living-docs to apply fixes.
-triggers:
-  - /living-docs
-  - docs are stale
-  - docs are wrong
-  - docs are out of date
-  - update the docs
-  - fix stale docs
-  - documentation needs updating
-  - living-docs
+description: >
+  Detect and fix stale documentation after code changes. Scans all doc files for references
+  to changed code and updates them to match current reality. Auto-triggers a warning after
+  code edits; run /living-docs to apply fixes.
+  Use when user says "docs are stale", "docs are wrong", "docs are out of date",
+  "update the docs", "fix stale docs", "documentation needs updating", or invokes /living-docs.
 ---
 
 # Living Docs
