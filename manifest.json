@@ -1,0 +1,18 @@
+{
+  "name": "living-docs",
+  "version": "1.0.0",
+  "description": "Keep documentation alive — auto-detects and fixes stale docs after code changes",
+  "author": "phlx0",
+  "license": "MIT",
+  "repository": "https://github.com/phlx0/living-docs",
+  "homepage": "https://github.com/phlx0/living-docs#readme",
+  "skills": [
+    "skills/living-docs.md"
+  ],
+  "subagents": [
+    "subagents/staleness-detector.md"
+  ],
+  "hooks": {
+    "PostToolUse": "hooks/post-edit.sh"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1",
+  "docs": {
+    "include": [
+      "**/*.md",
+      "**/*.rst",
+      "docs/**/*",
+      "README*",
+      "ARCHITECTURE*",
+      "API*"
+    ],
+    "exclude": [
+      "CHANGELOG.md",
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      ".git/**",
+      "coverage/**"
+    ]
+  },
+  "code": {
+    "include": [
+      "src/**",
+      "lib/**",
+      "**/*.{js,ts,jsx,tsx,py,go,rs,java,rb,php,cs,cpp,c,h}"
+    ],
+    "exclude": [
+      "**/*.test.*",
+      "**/*.spec.*",
+      "__tests__/**",
+      "**/__mocks__/**"
+    ]
+  },
+  "hooks": {
+    "enabled": true,
+    "mode": "warn",
+    "debounceSeconds": 30
+  },
+  "behavior": {
+    "autoFix": false,
+    "requireConfirmation": true,
+    "showDiff": true,
+    "createBackup": false,
+    "gitSince": "HEAD~1"
+  }
+}

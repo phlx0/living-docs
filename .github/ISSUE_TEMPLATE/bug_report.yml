@@ -1,0 +1,47 @@
+name: Bug Report
+description: Something isn't working
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you run, and what went wrong?
+      placeholder: |
+        Ran `/living-docs --dry-run`. Expected it to flag the changed function signature in docs/api.md. It reported "All docs up to date."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce
+      description: Minimal steps to reproduce the issue
+      placeholder: |
+        1. Change a function signature in src/api.js
+        2. Run /living-docs
+        3. See that docs/api.md is not flagged
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Project context
+      description: Language, framework, doc format
+      placeholder: "Node.js, Express, docs are Markdown in docs/"
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: living-docs version
+      placeholder: "1.0.0"
+    validations:
+      required: false

@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate plugin files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate manifest.json
+        run: |
+          python3 -c "
+          import json, sys
+          with open('manifest.json') as f:
+            m = json.load(f)
+          required = ['name', 'version', 'description', 'skills']
+          missing = [k for k in required if k not in m]
+          if missing:
+            print(f'manifest.json missing fields: {missing}')
+            sys.exit(1)
+          print('manifest.json OK')
+          "
+
+      - name: Check skill files exist
+        run: |
+          python3 -c "
+          import json, os, sys
+          with open('manifest.json') as f:
+            m = json.load(f)
+          errors = []
+          for skill in m.get('skills', []):
+            if not os.path.exists(skill):
+              errors.append(f'Skill file not found: {skill}')
+          for sub in m.get('subagents', []):
+            if not os.path.exists(sub):
+              errors.append(f'Subagent file not found: {sub}')
+          for event, hook in m.get('hooks', {}).items():
+            if not os.path.exists(hook):
+              errors.append(f'Hook file not found: {hook}')
+          if errors:
+            for e in errors: print(e)
+            sys.exit(1)
+          print('All files referenced in manifest exist.')
+          "
+
+      - name: Validate config example
+        run: |
+          python3 -c "
+          import json
+          with open('.living-docs.example.json') as f:
+            json.load(f)
+          print('.living-docs.example.json is valid JSON')
+          "
+
+      - name: Check hook scripts are executable
+        run: |
+          for f in hooks/*.sh; do
+            if [[ ! -x "$f" ]]; then
+              echo "Hook not executable: $f"
+              exit 1
+            fi
+          done
+          echo "All hooks are executable."
+
+      - name: Shellcheck hooks
+        run: |
+          sudo apt-get install -y shellcheck -q
+          shellcheck hooks/*.sh scripts/*.sh
+
+      - name: Check skill frontmatter
+        run: |
+          python3 -c "
+          import os, sys
+          errors = []
+          for root, dirs, files in os.walk('skills'):
+            for fname in files:
+              if not fname.endswith('.md'):
+                continue
+              path = os.path.join(root, fname)
+              with open(path) as f:
+                content = f.read()
+              if not content.startswith('---'):
+                errors.append(f'{path}: missing frontmatter')
+              elif 'name:' not in content.split('---')[1]:
+                errors.append(f'{path}: frontmatter missing name field')
+              elif 'description:' not in content.split('---')[1]:
+                errors.append(f'{path}: frontmatter missing description field')
+          if errors:
+            for e in errors: print(e)
+            sys.exit(1)
+          print('Skill frontmatter OK')
+          "

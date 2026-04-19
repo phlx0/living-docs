@@ -1,0 +1,23 @@
+# living-docs ignore file
+# Copy to .living-docs-ignore in your project root.
+# One path per line. Supports exact paths and directory prefixes.
+
+# Always ignore changelogs — they're intentionally historical
+CHANGELOG.md
+CHANGELOG.rst
+
+# Archived / legacy docs
+docs/archive/
+docs/legacy/
+
+# Auto-generated files
+src/generated/
+dist/
+build/
+
+# Vendored dependencies
+vendor/
+third_party/
+
+# External submodules
+ext/
